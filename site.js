@@ -11,7 +11,11 @@ document.querySelectorAll('.hl-form').forEach(function(el){
   if(cfg.id){
     var f=document.createElement('iframe');
     f.src='https://api.leadconnectorhq.com/widget/form/'+encodeURIComponent(cfg.id);
-    f.title=cfg.name;f.loading='lazy';f.style.cssText='width:100%;min-height:640px;border:none;border-radius:8px';
+    f.title=cfg.name;f.id='inline-'+cfg.id;f.style.cssText='width:100%;height:100%;min-height:640px;border:none;border-radius:8px';
+    f.setAttribute('data-layout',"{'id':'INLINE'}");f.setAttribute('data-trigger-type','alwaysShow');f.setAttribute('data-trigger-value','');
+    f.setAttribute('data-activation-type','alwaysActivated');f.setAttribute('data-activation-value','');f.setAttribute('data-deactivation-type','neverDeactivate');
+    f.setAttribute('data-deactivation-value','');f.setAttribute('data-form-name',cfg.name);f.setAttribute('data-height','640');
+    f.setAttribute('data-layout-iframe-id','inline-'+cfg.id);f.setAttribute('data-form-id',cfg.id);
     el.appendChild(f);
     if(!document.getElementById('hl-embed')){var s=document.createElement('script');s.id='hl-embed';s.src='https://link.msgsndr.com/js/form_embed.js';document.body.appendChild(s);}
   } else {
