@@ -1,9 +1,15 @@
+// On preview hosts that serve files from raw.githubusercontent.com (which blocks media), load media from jsDelivr instead.
+function mediaUrl(u){try{var a=new URL(u,document.baseURI);if(a.hostname==='raw.githubusercontent.com'){return a.href.replace('https://raw.githubusercontent.com/Americanjuice/teso-parents-schools/main/','https://cdn.jsdelivr.net/gh/Americanjuice/teso-parents-schools@main/');}return u;}catch(e){return u;}}
+document.querySelectorAll('img[src]').forEach(function(i){var n=mediaUrl(i.getAttribute('src'));if(n!==i.getAttribute('src'))i.src=n;});
+document.querySelectorAll('a.poster-link').forEach(function(a){a.href=mediaUrl(a.getAttribute('href'));});
+document.querySelectorAll('video').forEach(function(v){var c=false;if(v.getAttribute('poster')){v.poster=mediaUrl(v.getAttribute('poster'));}
+  v.querySelectorAll('source').forEach(function(s){var n=mediaUrl(s.getAttribute('src'));if(n!==s.getAttribute('src')){s.src=n;c=true;}});if(c)v.load();});
 function toggleNav(b){var n=document.getElementById('nav');var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);}
 document.querySelectorAll('#nav a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('nav').classList.remove('open');});});
 if(!window.TESO_REVIEW_MODE){var rb=document.getElementById('reviewBanner');if(rb)rb.remove();}
 document.querySelectorAll('.ph').forEach(function(el){
   var src=el.getAttribute('data-src');
-  if(src){el.style.backgroundImage='url('+src+')';el.classList.add('has-img');}
+  if(src){el.style.backgroundImage='url('+mediaUrl(src)+')';el.classList.add('has-img');}
   else if(window.TESO_REVIEW_MODE){var s=document.createElement('span');s.className='ph-label';s.textContent='Photo needed: '+el.getAttribute('data-photo');el.appendChild(s);}
 });
 document.querySelectorAll('.hl-form').forEach(function(el){
